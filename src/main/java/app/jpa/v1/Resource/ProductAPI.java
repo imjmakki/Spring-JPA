@@ -47,7 +47,7 @@ public class ProductAPI {
         return ResponseEntity.ok(prod);
     }
 
-    @DeleteMapping("/del")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> delProduct(@PathVariable Integer id) {
 
         productDAO.deleteById(id);
