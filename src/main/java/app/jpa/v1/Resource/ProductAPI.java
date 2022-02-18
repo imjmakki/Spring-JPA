@@ -34,7 +34,7 @@ public class ProductAPI {
     @GetMapping("/{id}")
     public ResponseEntity<Product> findProduct(@PathVariable Integer id) {
 
-        return ResponseEntity.ok(productDAO.findById(id).get());
+        return ResponseEntity.ok(productDAO.findById(id).orElseThrow());
     }
 
     @PutMapping("/{id}")
