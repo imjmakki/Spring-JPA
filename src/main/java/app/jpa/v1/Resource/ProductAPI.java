@@ -33,10 +33,14 @@ public class ProductAPI {
     }
 
     @GetMapping("/{id}")
-    @ExceptionHandler(ProductNotFound.class)
     public ResponseEntity<Product> findProduct(@PathVariable Integer id) {
 
         return ResponseEntity.ok(productDAO.findById(id).orElseThrow(()-> new ProductNotFound("Product Not Found")));
+    }
+
+    @ExceptionHandler(ProductNotFound.class)
+    public ResponseEntity<String> handleProductNotFound() {
+        return ResponseEntity.ok("Product Not Found");
     }
 
     @PutMapping("/{id}")
