@@ -36,4 +36,14 @@ public class ProductAPI {
 
         return ResponseEntity.ok(productDAO.findById(id).get());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> editProduct(@RequestBody Product product) {
+
+        Product prod = productDAO.findById(product.getId()).get();
+        prod.setName(prod.getName());
+        prod.setPrice(prod.getPrice());
+        prod = productDAO.save(prod);
+        return ResponseEntity.ok(prod);
+    }
 }
