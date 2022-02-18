@@ -2,6 +2,7 @@ package app.jpa.v1.Resource;
 
 import app.jpa.v1.DAO.ProductDAO;
 import app.jpa.v1.Domain.Product;
+import app.jpa.v1.Utility.Exception.ProductNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,10 @@ public class ProductAPI {
     }
 
     @GetMapping("/{id}")
+    @ExceptionHandler(ProductNotFound.class)
     public ResponseEntity<Product> findProduct(@PathVariable Integer id) {
 
-        return ResponseEntity.ok(productDAO.findById(id).orElseThrow());
+        return ResponseEntity.ok(productDAO.findById(id).orElseThrow(()-> new ProductNotFound("Product Not Found")));
     }
 
     @PutMapping("/{id}")
