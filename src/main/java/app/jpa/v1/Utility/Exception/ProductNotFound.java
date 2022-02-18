@@ -1,4 +1,4 @@
-package app.jpa.v1.Exception;
+package app.jpa.v1.Utility.Exception;
 
 public class ProductNotFound extends RuntimeException{
 
