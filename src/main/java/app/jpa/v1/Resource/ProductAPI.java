@@ -48,6 +48,12 @@ public class ProductAPI {
         return ResponseEntity.ok(productDAO.findById(id).orElseThrow(()-> new ProductNotFound("Product Not Found")));
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<List<Product>> FilteringWithName (@RequestParam String name) {
+
+        return ResponseEntity.ok(productDAO.findByName(name));
+    }
+
     @ExceptionHandler(ProductNotFound.class)
     public ResponseEntity<String> handleProductNotFound() {
         return ResponseEntity.ok("Product Not Found");
