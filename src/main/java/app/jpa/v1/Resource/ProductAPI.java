@@ -4,10 +4,9 @@ import app.jpa.v1.DAO.ProductDAO;
 import app.jpa.v1.Domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -24,5 +23,17 @@ public class ProductAPI {
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 
         return ResponseEntity.ok(productDAO.save(product));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Product>> getProducts() {
+
+        return ResponseEntity.ok(productDAO.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> findProduct(@PathVariable Integer id) {
+
+        return ResponseEntity.ok(productDAO.findById(id).get());
     }
 }
