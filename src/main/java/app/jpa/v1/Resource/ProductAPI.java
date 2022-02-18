@@ -46,4 +46,11 @@ public class ProductAPI {
         prod = productDAO.save(prod);
         return ResponseEntity.ok(prod);
     }
+
+    @DeleteMapping("/del")
+    public ResponseEntity<String> delProduct(@PathVariable Integer id) {
+
+        productDAO.deleteById(id);
+        return ResponseEntity.ok("Product Deleted Successfully");
+    }
 }
