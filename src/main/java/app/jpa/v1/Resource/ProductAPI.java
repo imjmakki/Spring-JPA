@@ -4,6 +4,8 @@ import app.jpa.v1.DAO.ProductDAO;
 import app.jpa.v1.Domain.Product;
 import app.jpa.v1.Utility.Exception.ProductNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,14 @@ public class ProductAPI {
     public ResponseEntity<List<Product>> getProducts() {
 
         return ResponseEntity.ok(productDAO.findAll());
+    }
+
+    @GetMapping("/paginate")
+    public ResponseEntity<List<Product>> Paginate(@RequestParam Integer page, @RequestParam Integer size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        List<Product> list = productDAO.findAll(pageable).getContent();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
